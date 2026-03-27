@@ -222,12 +222,13 @@ export default function Timeline({ items }: { items: MediaItem[] }) {
       {/* ── Upload button ── */}
       <button
         onClick={() => setShowUpload(true)}
-        className="fixed z-40 flex items-center justify-center rounded-full text-2xl transition-transform hover:scale-110"
+        className="fixed z-40 flex items-center justify-center rounded-full transition-transform hover:scale-110"
         style={{
-          bottom: 28,
-          left: 28,
-          width: 56,
-          height: 56,
+          bottom: 20,
+          left: 16,
+          width: 44,
+          height: 44,
+          fontSize: "1.4rem",
           background: "linear-gradient(135deg, #d4a020, #a07010)",
           boxShadow: "0 4px 20px rgba(200,150,0,0.4)",
           border: "none",
@@ -241,12 +242,13 @@ export default function Timeline({ items }: { items: MediaItem[] }) {
       {/* ── Edit mode toggle ── */}
       <button
         onClick={() => setEditMode((v) => !v)}
-        className="fixed z-40 flex items-center justify-center rounded-full text-xl transition-transform hover:scale-110"
+        className="fixed z-40 flex items-center justify-center rounded-full transition-transform hover:scale-110"
         style={{
-          bottom: 96,
-          left: 28,
-          width: 56,
-          height: 56,
+          bottom: 74,
+          left: 16,
+          width: 44,
+          height: 44,
+          fontSize: "1rem",
           background: editMode
             ? "linear-gradient(135deg,#1d4ed8,#1e3a8a)"
             : "rgba(30,58,138,0.7)",
@@ -265,7 +267,7 @@ export default function Timeline({ items }: { items: MediaItem[] }) {
       {editMode && (
         <div
           className="fixed z-40 text-xs text-blue-200 font-medium"
-          style={{ bottom: 158, left: 12, background: "rgba(0,0,0,0.6)", borderRadius: 8, padding: "4px 8px" }}
+          style={{ bottom: 126, left: 10, background: "rgba(0,0,0,0.6)", borderRadius: 8, padding: "3px 7px" }}
         >
           לחץ על תמונה לעריכה
         </div>
