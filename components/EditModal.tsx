@@ -31,6 +31,7 @@ export default function EditModal({ item, onClose }: Props) {
   const [year, setYear] = useState(String(item.year));
   const [month, setMonth] = useState(item.month);
   const [day, setDay] = useState(item.day ? String(item.day) : "");
+  const [fit, setFit] = useState<"cover" | "contain">(item.fit ?? "cover");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
@@ -50,6 +51,7 @@ export default function EditModal({ item, onClose }: Props) {
           year: Number(year),
           month: month,
           day: day ? Number(day) : 0,
+          fit,
         }),
       });
       const json = await res.json().catch(() => ({}));
@@ -146,6 +148,32 @@ export default function EditModal({ item, onClose }: Props) {
             outline: "none",
           }}
         />
+
+        {/* Fit toggle */}
+        <label className="block text-blue-200 text-sm mb-2">הצגת תמונה</label>
+        <div className="flex gap-2 mb-5">
+          {(["cover", "contain"] as const).map((val) => (
+            <button
+              key={val}
+              type="button"
+              onClick={() => setFit(val)}
+              style={{
+                flex: 1,
+                padding: "8px 0",
+                borderRadius: 10,
+                border: fit === val ? "2px solid #60a5fa" : "1px solid rgba(120,200,255,0.25)",
+                background: fit === val ? "rgba(37,99,235,0.35)" : "rgba(255,255,255,0.05)",
+                color: fit === val ? "#93c5fd" : "#6b9fc4",
+                fontWeight: fit === val ? 700 : 400,
+                fontSize: "0.8rem",
+                cursor: "pointer",
+                transition: "all 0.15s",
+              }}
+            >
+              {val === "cover" ? "✂️ חתוך למסגרת" : "🖼️ הצג מלא"}
+            </button>
+          ))}
+        </div>
 
         {error && (
           <p className="text-red-400 text-sm mb-3 text-center">{error}</p>

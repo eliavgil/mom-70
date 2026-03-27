@@ -200,7 +200,7 @@ function WindowFrame({
               onError={() => setImgError(true)}
               style={{
                 display: "block",
-                objectFit: item.isVideo ? "contain" : "cover",
+                objectFit: item.isVideo ? "contain" : (item.fit ?? "cover"),
               }}
             />
           )}

@@ -24,7 +24,7 @@ async function fetchMediaItems(): Promise<MediaItem[]> {
         { cache: "no-store" }
       ),
       supabase.from("descriptions").select("file_id, text"),
-      supabase.from("overrides").select("file_id, title, year, month, day"),
+      supabase.from("overrides").select("file_id, title, year, month, day, fit"),
     ]);
 
     const data = await driveRes.json();
@@ -45,11 +45,13 @@ async function fetchMediaItems(): Promise<MediaItem[]> {
 
       // Apply overrides if they exist
       const ov = overrideMap.get(file.id);
+      let fit: "cover" | "contain" | undefined;
       if (ov) {
         if (ov.title != null) title = ov.title;
         if (ov.year != null) year = ov.year;
         if (ov.month != null) month = ov.month;
         if (ov.day != null) day = ov.day;
+        if (ov.fit === "contain") fit = "contain";
       }
 
       items.push({
@@ -63,6 +65,7 @@ async function fetchMediaItems(): Promise<MediaItem[]> {
         title,
         sortKey: year * 10000 + (month || 6) * 100 + (day || 0),
         description: descMap.get(file.id),
+        fit,
       });
     }
 

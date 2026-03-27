@@ -7,7 +7,7 @@ export async function POST(
 ) {
   const { id } = await params;
   const body = await req.json();
-  const { title, year, month, day } = body;
+  const { title, year, month, day, fit } = body;
 
   const { error } = await supabase.from("overrides").upsert({
     file_id: id,
@@ -15,6 +15,7 @@ export async function POST(
     year: year ? Number(year) : null,
     month: month !== "" && month != null ? Number(month) : null,
     day: day ? Number(day) : null,
+    fit: fit === "contain" ? "contain" : null,
     updated_at: new Date().toISOString(),
   });
 

@@ -9,6 +9,7 @@ export interface MediaItem {
   title: string;
   sortKey: number;
   description?: string;
+  fit?: "cover" | "contain";
 }
 
 const hebrewMonths: Record<string, number> = {
