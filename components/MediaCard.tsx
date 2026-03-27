@@ -195,10 +195,13 @@ function WindowFrame({
             <img
               src={thumbUrl}
               alt={item.title}
-              className="w-full h-full object-cover"
+              className="w-full h-full"
               loading="lazy"
               onError={() => setImgError(true)}
-              style={{ display: "block" }}
+              style={{
+                display: "block",
+                objectFit: item.isVideo ? "contain" : "cover",
+              }}
             />
           )}
 
