@@ -1,7 +1,7 @@
 import { google } from "googleapis";
 import { Readable } from "stream";
 
-function getDrive() {
+export function getDrive() {
   const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_OAUTH_CLIENT_ID,
     process.env.GOOGLE_OAUTH_CLIENT_SECRET,

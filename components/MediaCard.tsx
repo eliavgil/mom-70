@@ -10,6 +10,7 @@ interface Props {
   onImageClick: () => void;
   onVideoClick: () => void;
   onEditClick: () => void;
+  onDeleted: () => void;
 }
 
 export default function MediaCard({
@@ -19,9 +20,12 @@ export default function MediaCard({
   onImageClick,
   onVideoClick,
   onEditClick,
+  onDeleted,
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
@@ -72,29 +76,108 @@ export default function MediaCard({
               onClick={editMode ? onEditClick : item.isVideo ? onVideoClick : onImageClick}
             />
             {editMode && (
-              <button
-                onClick={onEditClick}
-                title="ערוך תאריך וכותרת"
-                style={{
-                  position: "absolute",
-                  top: 6,
-                  left: 6,
-                  width: 28,
-                  height: 28,
-                  borderRadius: "50%",
-                  background: "rgba(37,99,235,0.92)",
-                  border: "none",
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "0.8rem",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.5)",
-                  zIndex: 10,
-                }}
-              >
-                ✏️
-              </button>
+              <>
+                <button
+                  onClick={onEditClick}
+                  title="ערוך תאריך וכותרת"
+                  style={{
+                    position: "absolute",
+                    top: 6,
+                    left: 6,
+                    width: 28,
+                    height: 28,
+                    borderRadius: "50%",
+                    background: "rgba(37,99,235,0.92)",
+                    border: "none",
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "0.8rem",
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.5)",
+                    zIndex: 10,
+                  }}
+                >
+                  ✏️
+                </button>
+                {!confirmDelete ? (
+                  <button
+                    onClick={() => setConfirmDelete(true)}
+                    title="מחק"
+                    style={{
+                      position: "absolute",
+                      top: 6,
+                      left: 40,
+                      width: 28,
+                      height: 28,
+                      borderRadius: "50%",
+                      background: "rgba(185,28,28,0.92)",
+                      border: "none",
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: "0.8rem",
+                      boxShadow: "0 2px 8px rgba(0,0,0,0.5)",
+                      zIndex: 10,
+                    }}
+                  >
+                    🗑️
+                  </button>
+                ) : (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: 6,
+                      left: 6,
+                      display: "flex",
+                      gap: 4,
+                      zIndex: 10,
+                      background: "rgba(0,0,0,0.75)",
+                      borderRadius: 8,
+                      padding: "4px 6px",
+                    }}
+                  >
+                    <span style={{ color: "white", fontSize: "0.7rem", lineHeight: "24px" }}>
+                      למחוק?
+                    </span>
+                    <button
+                      disabled={deleting}
+                      onClick={async () => {
+                        setDeleting(true);
+                        await fetch(`/api/delete/${item.id}`, { method: "DELETE" });
+                        onDeleted();
+                      }}
+                      style={{
+                        background: "#b91c1c",
+                        color: "white",
+                        border: "none",
+                        borderRadius: 5,
+                        padding: "2px 7px",
+                        fontSize: "0.7rem",
+                        cursor: deleting ? "not-allowed" : "pointer",
+                        opacity: deleting ? 0.6 : 1,
+                      }}
+                    >
+                      {deleting ? "..." : "כן"}
+                    </button>
+                    <button
+                      onClick={() => setConfirmDelete(false)}
+                      style={{
+                        background: "rgba(255,255,255,0.15)",
+                        color: "white",
+                        border: "none",
+                        borderRadius: 5,
+                        padding: "2px 7px",
+                        fontSize: "0.7rem",
+                        cursor: "pointer",
+                      }}
+                    >
+                      לא
+                    </button>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>

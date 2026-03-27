@@ -63,7 +63,8 @@ function YearBanner({ year }: { year: number }) {
   );
 }
 
-export default function Timeline({ items }: { items: MediaItem[] }) {
+export default function Timeline({ items: initialItems }: { items: MediaItem[] }) {
+  const [items, setItems] = useState(initialItems);
   const [bearY, setBearY] = useState(8);
   const [lightboxItem, setLightboxItem] = useState<MediaItem | null>(null);
   const [videoItem, setVideoItem] = useState<MediaItem | null>(null);
@@ -109,6 +110,7 @@ export default function Timeline({ items }: { items: MediaItem[] }) {
         onImageClick={() => setLightboxItem(item)}
         onVideoClick={() => setVideoItem(item)}
         onEditClick={() => setEditItem(item)}
+        onDeleted={() => setItems((prev) => prev.filter((x) => x.id !== item.id))}
       />
     );
   }
