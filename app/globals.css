@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* ── Snowflakes ── */
+@keyframes snowfall {
+  0% {
+    transform: translateY(-30px) translateX(0px) rotate(0deg);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateY(50vh) translateX(25px) rotate(200deg);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(115vh) translateX(-15px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* ── Stars ── */
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.4);
+  }
+}
+
+/* ── Bear walking ── */
+@keyframes bearWalk {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(-2deg);
+  }
+  25% {
+    transform: translateY(-6px) rotate(1.5deg);
+  }
+  50% {
+    transform: translateY(-3px) rotate(-1deg);
+  }
+  75% {
+    transform: translateY(-8px) rotate(2deg);
+  }
+}
+
+/* ── Timeline path pulse ── */
+@keyframes pathPulse {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+/* ── Window warm glow ── */
+@keyframes warmGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 18px rgba(255, 200, 80, 0.2), 0 8px 28px rgba(0, 0, 0, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 32px rgba(255, 200, 80, 0.4), 0 8px 28px rgba(0, 0, 0, 0.6);
+  }
+}
+
+/* ── Window frame button width ── */
+.window-frame-btn {
+  width: clamp(155px, 36vw, 275px);
+}
+
+/* ── Mobile layout ── */
+@media (max-width: 639px) {
+  .media-card-row {
+    flex-direction: column !important;
+    align-items: center !important;
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  .media-card-half {
+    width: 100%;
+    justify-content: center !important;
+  }
+  .media-card-half > div {
+    padding-inline-start: 0 !important;
+    padding-inline-end: 0 !important;
+  }
+  .media-card-empty {
+    display: none;
+  }
+  .media-card-dot {
+    order: -1;
+    margin-bottom: 0.5rem;
+  }
+  .window-frame-btn {
+    width: clamp(260px, 85vw, 340px);
+  }
+}
