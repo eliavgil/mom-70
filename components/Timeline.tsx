@@ -191,7 +191,7 @@ export default function Timeline({ items: initialItems }: { items: MediaItem[] }
       {/* ── Header ── */}
       <header className="relative z-20 text-center pt-20 pb-10 px-4">
         <h1
-          className="text-4xl sm:text-5xl md:text-7xl font-black text-white leading-tight px-2"
+          className="text-2xl sm:text-5xl md:text-7xl font-black text-white leading-tight px-2 whitespace-nowrap"
           style={{ textShadow: "0 0 50px rgba(100,200,255,0.55)" }}
         >
           🎂 מזל טוב מאמזו מאמז 🎂
