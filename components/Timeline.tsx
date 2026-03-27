@@ -5,6 +5,7 @@ import { MediaItem } from "@/lib/parseFilename";
 import MediaCard from "./MediaCard";
 import Lightbox from "./Lightbox";
 import VideoModal from "./VideoModal";
+import MusicPlayer from "./MusicPlayer";
 import PolarBear from "./PolarBear";
 import UploadModal from "./UploadModal";
 import EditModal from "./EditModal";
@@ -282,6 +283,8 @@ export default function Timeline({ items }: { items: MediaItem[] }) {
       {videoItem && (
         <VideoModal item={videoItem} onClose={() => setVideoItem(null)} />
       )}
+
+      <MusicPlayer />
     </div>
   );
 }
